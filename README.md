@@ -7,13 +7,15 @@ proyetni ishga tushurish uchun quyidagi ketma ketlikda ishlarni bajaring!
 4.  pip install django                -> # django
 5.  pip install djangorestframework   -> # drf
 6.  pip install pillow                -> # img uchun
-7.  yuklab olingandan so'ng quyidagi kamandalar orqali  database ga saqlang:
-8.  1->  py manage.py makemigrations
-9.  2->  py manage.py migrate
-10.  supuer user yarating: py manage.py createsuperuser
-11.  endi proyektga quyidagi kamanda orqali run berib ishlatishingiz mumkin : py manage.py runserver
-12.  api dakumentatsiyasi bilan quydagi  manzil orqali tanishishingiz mumkin:  https://documenter.getpostman.com/view/29686012/2s9YyweKSX
-13.  api lar ishlashini postman yoki shunga uxshagan app larda ishlatib sinashingiz mumkin .
+7.  pip install django-filter         -># filter uchun 
+8.  yuklab olingandan so'ng quyidagi kamandalar orqali  database ga saqlang:
+9.  1->  py manage.py makemigrations
+10.  2->  py manage.py migrate
+11.  supuer user yarating: py manage.py createsuperuser
+12.  endi proyektga quyidagi kamanda orqali run berib ishlatishingiz mumkin : py manage.py runserver
+13.  api dakumentatsiyasi bilan quydagi  manzil orqali tanishishingiz mumkin:  https://documenter.getpostman.com/view/29686012/2s9YyweKSX
+14.  api lar ishlashini postman yoki shunga uxshagan app larda ishlatib sinashingiz mumkin .
+15.  filterni ishlatish buyicha ohirida dacumentatsiyadan qarab ishlatib ko'rishingiz mumkin 
     
 
 # project created by Ismoilkhan 
