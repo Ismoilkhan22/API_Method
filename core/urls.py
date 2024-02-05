@@ -4,6 +4,7 @@ from rest_framework.routers import DefaultRouter
 
 from core.v1.auth import LoginView, RegisView, LogoutView
 
+
 router = DefaultRouter()
 router.register(r'categories', CategoryView, basename='ctg')
 router.register(r'products', ProductView, basename='product')
@@ -15,6 +16,7 @@ urlpatterns = [
     path('regis/', RegisView.as_view()),
     path('logout/', LogoutView.as_view()),
     path('like/', LikeApi.as_view()),
-    # path('', include(router.urls))
+
+
 
 ]+router.urls

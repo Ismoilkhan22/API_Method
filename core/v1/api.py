@@ -1,16 +1,16 @@
-from rest_framework import viewsets, generics, filters
-from rest_framework.response import Response
+from rest_framework import viewsets
 from rest_framework.generics import GenericAPIView, CreateAPIView
 from rest_framework.mixins import ListModelMixin, RetrieveModelMixin
 from rest_framework.viewsets import GenericViewSet
+from django_filters.rest_framework import DjangoFilterBackend
 
 # ruxsatlar
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 
 # modellar
-from base.helper import MethodNot
 from core.models import Category, Product
+
 # serializerlar
 from core.serializer import CtgSerializer, ProductSerializer, LikeSerializer
 
@@ -39,8 +39,8 @@ class ProductView(viewsets.ModelViewSet):
     authentication_classes = (TokenAuthentication,)
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    filter_backends = [filters.SearchFilter]
-    search_filters = ['title', 'desc']
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['user', 'name', 'desc', 'ctg']
 
 
 class ProductView2(

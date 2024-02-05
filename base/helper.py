@@ -26,3 +26,4 @@ class MethodNot:
         return Response({
             "error": "bu zaprost ishlamaydi"
         })
+
