@@ -53,9 +53,9 @@ class RegisView(GenericAPIView):
 
 class LogoutView(GenericAPIView):
     permission_classes = IsAuthenticated,
-    authentication_classes = TokenAuthentication,
+    authentication_classes = (TokenAuthentication,)
 
-    def post(self,request):
+    def post(self, request):
         token = Token.objects.get(user=request.user)
         token.delete()
         return Response({

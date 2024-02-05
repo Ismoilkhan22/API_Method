@@ -43,13 +43,20 @@ class User(AbstractBaseUser, PermissionsMixin):
 class Category(models.Model):
     title = models.CharField(max_length=128)
 
+    def format(self):
+        return {
+            "id": self.id,
+            "Company": self.title,
+        }
+
     def __str__(self):
         return self.title
 
 
 class Like(models.Model):
     product = models.ForeignKey('Product', on_delete=models.CASCADE, related_name='product')
-    status = models.BooleanField(default=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_like')
+    is_like = models.BooleanField(default=True)
 
 
 class Product(models.Model):
@@ -58,8 +65,15 @@ class Product(models.Model):
     img = models.ImageField(upload_to='imgs')
     ctg = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user')
-    like = models.ForeignKey(Like, on_delete=models.CASCADE, related_name='like')
+    likes = models.IntegerField(default=0)
 
-
-
-
+    def format(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "desc": self.desc,
+            "img": self.img,
+            "ctg": self.ctg,
+            "user": self.user,
+            "likes": self.likes,
+        }
