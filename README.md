@@ -16,4 +16,4 @@ proyetni ishga tushurish uchun quyidagi ketma ketlikda ishlarni bajaring!
 13.  api lar ishlashini postman yoki shunga uxshagan app larda ishlatib sinashingiz mumkin .
     
 
-# project created by Ismailkhan 
+# project created by Ismoilkhan 
