@@ -1,3 +1,4 @@
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated,IsAdminUser
@@ -52,8 +53,8 @@ class RegisView(GenericAPIView):
 
 
 class LogoutView(GenericAPIView):
-    permission_classes = IsAuthenticated,
-    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+    # authentication_classes = (TokenAuthentication,)
 
     def post(self, request):
         token = Token.objects.get(user=request.user)

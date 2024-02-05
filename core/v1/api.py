@@ -1,12 +1,20 @@
-from rest_framework import viewsets
-from rest_framework.authentication import TokenAuthentication
-from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
+from rest_framework import viewsets, generics, filters
 from rest_framework.response import Response
 from rest_framework.generics import GenericAPIView, CreateAPIView
+from rest_framework.mixins import ListModelMixin, RetrieveModelMixin
+from rest_framework.viewsets import GenericViewSet
 
+# ruxsatlar
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
+
+# modellar
 from base.helper import MethodNot
-from core.models import Category, Product, Like
+from core.models import Category, Product
+# serializerlar
 from core.serializer import CtgSerializer, ProductSerializer, LikeSerializer
+
+from rest_framework.generics import DestroyAPIView
 
 
 class CategoryView(viewsets.ModelViewSet):
@@ -16,19 +24,14 @@ class CategoryView(viewsets.ModelViewSet):
     authentication_classes = (TokenAuthentication,)
 
 
-class CategoryView2(GenericAPIView, MethodNot):
+class CategoryView2(
+    ListModelMixin,
+    RetrieveModelMixin,
+    GenericViewSet
+):
     permission_classes = (IsAuthenticated,)
     serializer_class = CtgSerializer
-    authentication_classes = (TokenAuthentication,)
-
-    def get(self, request, pk=None, *args, **kwargs):
-        if pk:
-            try:
-                return Response(Category.objects.get(pk=pk).format())
-            except:
-                return Response({"error": "Bunaqa category mavjud emas"})
-        categories = Category.objects.all().order_by("-pk")
-        return Response([x.format() for x in categories])
+    queryset = Category.objects.all()
 
 
 class ProductView(viewsets.ModelViewSet):
@@ -36,47 +39,21 @@ class ProductView(viewsets.ModelViewSet):
     authentication_classes = (TokenAuthentication,)
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    filter_backends = [filters.SearchFilter]
+    search_filters = ['title', 'desc']
 
 
-class ProductView2(GenericAPIView, MethodNot):
+class ProductView2(
+    ListModelMixin,
+    RetrieveModelMixin,
+    GenericViewSet
+):
     permission_classes = (IsAuthenticated,)
     serializer_class = ProductSerializer
-    authentication_classes = (TokenAuthentication,)
     queryset = Product.objects.all()
-
-    def get(self, request, pk=None, *args, **kwargs):
-        if pk:
-            try:
-                return Response(Product.objects.get(pk=pk).format())
-            except:
-                return Response({"error": "Bunaqa product mavjud emas"})
-        products = Product.objects.all().order_by("-pk")
-        return Response([x.format() for x in products])
 
 
 class LikeApi(CreateAPIView):
     permission_classes = (IsAuthenticated,)
     serializer_class = LikeSerializer
     authentication_classes = (TokenAuthentication,)
-
-
-    # def post(self, request, product_id=None, *args, **kwargs):
-    #     user = request.user
-    #     product = Product.objects.get(id=product_id)
-    #     current_likes = product.likes
-    #     liked = Like.objects.filter(user=user, product=product).count()
-    #     if not liked:
-    #         liked = Like.objects.create(user=user, product=product)
-    #         current_likes += 1
-    #     else:
-    #         liked = Like.objects.filter(user=user, product=product).delete()
-    #         current_likes = current_likes-1
-    #     product.likes = current_likes
-    #     product.save()
-
-
-
-
-
-
-

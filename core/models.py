@@ -43,12 +43,6 @@ class User(AbstractBaseUser, PermissionsMixin):
 class Category(models.Model):
     title = models.CharField(max_length=128)
 
-    def format(self):
-        return {
-            "id": self.id,
-            "Company": self.title,
-        }
-
     def __str__(self):
         return self.title
 
@@ -67,13 +61,3 @@ class Product(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user')
     likes = models.IntegerField(default=0)
 
-    def format(self):
-        return {
-            "id": self.id,
-            "name": self.name,
-            "desc": self.desc,
-            "img": self.img,
-            "ctg": self.ctg,
-            "user": self.user,
-            "likes": self.likes,
-        }
